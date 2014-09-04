@@ -58,10 +58,10 @@
             </dependency>
         </dependencies>
     <repositories>
-        <repository>
-            <id>public</id>
-            <url>http://192.168.253.149:8081/nexus/content/groups/public/</url>
-        </repository>
+        <!--<repository>-->
+            <!--<id>public</id>-->
+            <!--<url>http://192.168.253.149:8081/nexus/content/groups/public/</url>-->
+        <!--</repository>-->
         <repository>
             <id>oschina</id>
             <url>http://maven.oschina.net/content/groups/public/</url>
