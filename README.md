@@ -1,5 +1,3 @@
-basic
+Registry Server
 -----
-- spring
-- log4j
-- maven plugin
+base on zookeeper
