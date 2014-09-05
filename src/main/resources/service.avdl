@@ -1,0 +1,5 @@
+@namespace("com.edwardsbean.registry.example")
+protocol HelloService
+{   
+	string sayHello(string name);
+}

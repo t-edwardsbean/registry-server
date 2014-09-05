@@ -1,7 +1,9 @@
 package com.edwardsbean.registry.zookeeper;
 
+import com.edwardsbean.registry.constant.Registry;
+import com.edwardsbean.registry.service.ServiceDefine;
 import org.I0Itec.zkclient.ZkClient;
-import org.apache.zookeeper.CreateMode;
+import org.I0Itec.zkclient.serialize.SerializableSerializer;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,14 +17,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:applicationContext.xml")
 public class ZkclientTest {
-    @Value("${rs.registry.hostname}") private String hostname;
-    @Value("${rs.registry.port}") private String port;
     private ZkClient zkClient;
+    @Value("${rs.registry.host}") private String host;
 
     @Before
     public void setUp() throws Exception {
-        //默认30秒超时。自动重连，并维护session
-        zkClient = new ZkClient(hostname+":"+port,30000);
+        //自动重连，并维护session
+        zkClient = new ZkClient(host,2000, 2000, new SerializableSerializer());
+
 
     }
 
@@ -32,6 +34,20 @@ public class ZkclientTest {
         zkClient.createPersistent("/services/user/a",true);
     }
 
+    @Test
+    public void testSerializeTest() throws Exception {
+        ServiceDefine serviceDefine = new ServiceDefine();
+        serviceDefine.setServiceName("A");
+        String servicePath = Registry.ROOT + "/" + serviceDefine.getServiceName();
+        zkClient.createPersistent(servicePath,true);
+        zkClient.writeData(servicePath,serviceDefine);
+        ServiceDefine returnDefine = zkClient.readData(servicePath);
+        assert returnDefine.getServiceName().equals(serviceDefine.getServiceName());
+    }
 
+    @Test
+    public void testSequence() throws Exception {
+        zkClient.createEphemeralSequential("/services/","haha");
 
+    }
 }

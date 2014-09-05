@@ -13,12 +13,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration("classpath:applicationContext.xml")
 public class ZookeeperTest {
     private ZooKeeper zk;
-    @Value("${rs.registry.hostname}") private String hostname;
-    @Value("${rs.registry.port}") private String port;
+    @Value("${rs.registry.host}") private String host;
 
     @Before
     public void setUp() throws Exception {
-        zk = new ZooKeeper(hostname + ":" + port, 3000, new Watcher() {
+        zk = new ZooKeeper(host, 3000, new Watcher() {
             @Override
             public void process(WatchedEvent event) {
             }
