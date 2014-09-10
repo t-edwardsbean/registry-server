@@ -64,14 +64,14 @@ public final class ServiceProxy<E> implements InvocationHandler {
                             log.debug("请求时间:" + currentTime + "毫秒, 请求结果:" + result);
                             return result;
                         } catch (Exception e) {
+                            //由于使用了反射，需要用getCause获取最原生态的异常
                             Throwable exception = e.getCause();
                             //业务异常
-                            if (SpecificExceptionBase.class.isAssignableFrom(exception.getClass())) {
+                            if (exception != null && exception instanceof SpecificExceptionBase) {
                                 log.debug("业务异常：" + exception);
                                 return exception;
                                 //其他异常视为通信异常
                             } else {
-
                                 //TODO 设置服务实例离线
                                 //ServiceSubscriber.offlineServiceInstance(serviceDefine,
                                 //instance);

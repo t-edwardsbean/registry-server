@@ -40,7 +40,7 @@ public class ZookeeperServicePubliser extends ServicePubliser{
         //设置服务信息
         zkClient.writeData(servicePath,serviceDefine);
         //创建服务实例
-        String createPath = zkClient.createEphemeralSequential(servicePath, serviceInstance);
+        String createPath = zkClient.createEphemeralSequential(servicePath + "/", serviceInstance);
         log.info("注册服务实例成功，path:" + createPath);
     }
 

@@ -21,7 +21,7 @@ public class ServiceSubscriber {
     private static final Logger log = LoggerFactory.getLogger(ServiceSubscriber.class);
     @Value("${rs.registry.host}")
     private String host;
-    @Value("${rs.registry.name}")
+    @Value("${rs.service.name}")
     private String serviceName;
     private ZkClient zkClient;
 

@@ -49,8 +49,9 @@ public class ZkclientTest {
     }
 
     @Test
-    public void testSequence() throws Exception {
-        zkClient.createEphemeralSequential("/services/user-center","haha");
+    public void testEphemeral() throws Exception {
+        zkClient.createEphemeralSequential("/services/user-center/","haha");
+        Thread.sleep(100000);
 
     }
 

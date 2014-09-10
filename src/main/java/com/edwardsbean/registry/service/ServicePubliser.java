@@ -30,7 +30,7 @@ public abstract class ServicePubliser {
     protected void startService(){
         Class serviceClass = null;
         try {
-            serviceClass = Class.forName(serviceDefine.getServiceClass());
+            serviceClass = Class.forName(serviceDefine.serviceClass);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
