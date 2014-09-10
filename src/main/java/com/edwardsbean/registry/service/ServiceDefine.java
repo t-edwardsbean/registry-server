@@ -8,19 +8,39 @@ import org.springframework.stereotype.Repository;
  */
 @Repository("serviceDefine")
 public class ServiceDefine implements java.io.Serializable {
-    @Value("${rs.service.name}")public String serviceName;
-    @Value(("${rs.service.interface}"))public String serviceClass;
+    @Value("${rs.service.name}")
+    public String serviceName;
+    @Value(("${rs.service.interface}"))
+    public String serviceClass;
     public String routeClass;
     public String failClass;
     public String proxyClass;
-    @Value("${rs.service.route}")public String route;
+    @Value("${rs.service.route}")
+    public String route;
 
+    private Class<?> serviceClazz;
     private Class<?> proxyClazz;
     private Class<?> routeClazz;
     private Class<?> failClazz;
 
-    public String getServiceClass() {
-        return serviceClass;
+    /**
+     * 反射类
+     */
+    protected void reflectClass() {
+        if (serviceClazz == null) {
+            try {
+                this.serviceClazz = Class.forName(this.serviceClass);
+                this.proxyClazz = Class.forName(this.proxyClass);
+                this.routeClazz = Class.forName(this.routeClass);
+                this.failClazz = Class.forName(this.failClass);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public Class<?> getServiceClass() {
+        return serviceClazz;
     }
 
     public String getServiceName() {

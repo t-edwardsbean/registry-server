@@ -2,6 +2,7 @@ package com.edwardsbean.registry.zookeeper;
 
 import com.edwardsbean.registry.constant.Registry;
 import com.edwardsbean.registry.service.ServiceDefine;
+import com.edwardsbean.registry.service.ServiceInstance;
 import org.I0Itec.zkclient.ZkClient;
 import org.I0Itec.zkclient.serialize.SerializableSerializer;
 import org.junit.Before;
@@ -10,6 +11,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.List;
 
 /**
  * Created by edwardsbean on 2014/9/4 0004.
@@ -31,7 +34,7 @@ public class ZkclientTest {
     //递归创建节点
     @Test
     public void testCreate() throws Exception {
-        zkClient.createPersistent("/services/user/a",true);
+        zkClient.createPersistent("/services/user-center",true);
     }
 
     @Test
@@ -47,7 +50,16 @@ public class ZkclientTest {
 
     @Test
     public void testSequence() throws Exception {
-        zkClient.createEphemeralSequential("/services/","haha");
+        zkClient.createEphemeralSequential("/services/user-center","haha");
 
+    }
+
+    @Test
+    public void testGetChildren() throws Exception {
+
+        List<String> paths = zkClient.getChildren(Registry.ROOT);
+        for (String path : paths) {
+            ServiceInstance serviceInstance = zkClient.readData(path);
+        }
     }
 }

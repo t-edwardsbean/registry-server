@@ -9,6 +9,7 @@ import org.springframework.context.event.ContextStartedEvent;
 import org.springframework.stereotype.Component;
 
 /**
+ * Registry Server Framework，用于启动注册服务框架
  * Created by edwardsbean on 14-9-5.
  */
 @Component
