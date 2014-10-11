@@ -1,6 +1,9 @@
 package com.edwardsbean.registry.core;
 
+import com.edwardsbean.registry.pool.PoolStrategy;
+import com.edwardsbean.registry.service.ServiceSubscriber;
 import com.edwardsbean.registry.service.ZookeeperServicePubliser;
+import com.edwardsbean.registry.service.ZookeeperServiceSubscriber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +25,8 @@ public final class RSFramework implements ApplicationListener {
      */
     @Autowired
     ZookeeperServicePubliser zookeeperServicePubliser;
-
+    @Autowired
+    ZookeeperServiceSubscriber zookeeperServiceSubscriber;
     @Autowired
     Config config;
 
@@ -44,5 +48,9 @@ public final class RSFramework implements ApplicationListener {
                 start();
             }
         }
+    }
+
+    public ServiceSubscriber getServiceSubscriber() {
+        return zookeeperServiceSubscriber;
     }
 }

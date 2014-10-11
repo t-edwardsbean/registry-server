@@ -7,4 +7,5 @@ import com.edwardsbean.registry.pool.PoolStrategy;
  */
 public interface ServiceSubscriber {
     public void subscribeService(Class<?> serviceClass, PoolStrategy poolStrategy) throws Exception;
+    public <E> E getServiceClient(Class<E> serviceClass);
 }
